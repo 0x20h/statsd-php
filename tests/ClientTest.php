@@ -227,4 +227,21 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         $message = $this->connection->getLastMessage();
         $this->assertEquals('test.barfoo:666|s', $message);
     }
+
+    public function testSetWithChars()
+    {
+
+        $this->client->set("foobar", "x");
+
+        $message = $this->connection->getLastMessage();
+        $this->assertEquals('test.foobar:x|s', $message);
+    }
+
+    public function testSetInvalidChars()
+    {
+        $this->client->set("foo", "x:3|p");
+
+        $message = $this->connection->getLastMessage();
+        $this->assertEquals('test.foo:x3p|s', $message);
+    }
 }

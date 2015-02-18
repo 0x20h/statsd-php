@@ -214,14 +214,16 @@ class Client
     }
 
     /**
-     * sends a set member
+     * sends a set member.
+     *
+     *  ':' or '|' characters will be filtered
      *
      * @param string $key
-     * @param int $value
+     * @param mixed $value
      */
     public function set($key, $value)
     {
-        $this->send($key, $value, 's', 1);
+        $this->send($key, str_replace(array(':', '|'), '', $value), 's', 1);
     }
 
     /**
